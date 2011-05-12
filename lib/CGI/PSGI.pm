@@ -198,6 +198,11 @@ for my $method (qw(
 sub DESTROY {
     my $self = shift;
     CGI::initialize_globals();
+
+    # chain-up to the parent's destructor
+    if($self->can("CGI::DESTROY")) {
+       $self->CGI::DESTROY;
+    }
 }
 
 1;
